@@ -1,0 +1,18 @@
+[
+  { 
+    "id": 1,
+    "name": "SmarTV LG 4K",
+    "color": "Space Gray",
+    "price": 1999.00,
+    "code": "#tv00001",
+    "creationDate": "16/03/2022" 
+  },
+  { 
+    "id": 2,
+    "name": "SmarTV Samsung 4K",
+    "color": "Black",
+    "price": 2500.00,
+    "code": "#tv00002",
+    "creationDate": "16/03/2022" 
+  }
+]
