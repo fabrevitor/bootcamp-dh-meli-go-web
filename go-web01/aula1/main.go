@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -27,22 +27,21 @@ func helloWorld(c *gin.Context) {
 func GetOne(c *gin.Context) {
 
 	data, err := readProductsFile(c)
-
 	var unmProducts []product
-
-	fmt.Println("erro:", err)
 
 	if err == nil {
 		json.Unmarshal(data, &unmProducts)
-		fmt.Println("Entrou aq")
 	}
 
-	// if len(unmProducts) > 0 {
-	// 	fmt.Println("Opa! Tem dados!")
-	// } else {
-	// 	fmt.Println("F total")
-	// }
-	// c.JSON(http.StatusOK, unmProducts[0])
+	idFiltered, err := strconv.Atoi(c.Param("id"))
+
+	if err == nil {
+		for _, p := range unmProducts {
+			if p.Id == idFiltered {
+				c.JSON(http.StatusOK, p)
+			}
+		}
+	}
 
 }
 
@@ -74,7 +73,7 @@ func main() {
 	router := gin.Default()
 
 	router.GET("/hello", helloWorld)
-	//router.GET("/products", GetOne)
+	router.GET("/products/:id", GetOne)
 	router.GET("/products", GetAll)
 	router.Run()
 }
